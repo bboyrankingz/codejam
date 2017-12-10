@@ -2,6 +2,7 @@ class Register(object):
 
     def __init__(self, cache={}):
         self.cache = cache
+        self.greatest = 0
 
     def parse_modify(self, sequence):
         chaine, modify, number = sequence.split(" ")
@@ -22,6 +23,8 @@ class Register(object):
         key, value = self.parse_modify(modify)
         if self.parse_condition(condition):
             self.cache[key] = self.cache[key] + value
+            if self.cache[key] > self.greatest:
+                self.greatest = self.cache[key]
         return self.cache
 
 
@@ -31,3 +34,4 @@ if "__main__" in __name__:
         for sequence in input_file.readlines():
             registry.register(sequence)
     print(max([v for k, v in registry.cache.items()]))
+    print(registry.greatest)
