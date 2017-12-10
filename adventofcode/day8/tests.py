@@ -17,7 +17,9 @@ class Test(unittest.TestCase):
         self.assertTrue(Register({"c": 10}).parse_condition("c == 10"))
 
     def test_register(self):
-        self.assertEqual(Register().register("b inc 5 if a > 1"), {"a": 0, "b": 0})
+        registery = Register({})
+        self.assertEqual(registery.register("b inc 5 if a > 1"), {"a": 0, "b": 0})
+        self.assertEqual(registery.register("a inc 1 if b < 5"), {"a": 1, "b": 0})
 
 
 if __name__ == '__main__':

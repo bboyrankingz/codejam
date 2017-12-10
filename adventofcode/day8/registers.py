@@ -5,6 +5,8 @@ class Register(object):
 
     def parse_modify(self, sequence):
         chaine, modify, number = sequence.split(" ")
+        if not self.cache.get(chaine):
+            self.cache[chaine] = 0
         if modify == "inc":
             return chaine, int(number)
         return chaine, -1 * int(number)
@@ -13,15 +15,19 @@ class Register(object):
         chaine, modify, number = sequence.split(" ")
         if not self.cache.get(chaine):
             self.cache[chaine] = 0
-        if modify == ">":
-            return self.cache[chaine] > int(number)
-        elif modify == ">=":
-            return self.cache[chaine] >= int(number)
-        elif modify == "<":
-            return self.cache[chaine] < int(number)
-        elif modify == "<=":
-            return self.cache[chaine] <= int(number)
-        return self.cache[chaine] == int(number)
+        return eval("{}{}{}".format(self.cache[chaine], modify, number))
 
     def register(self, sequence):
+        modify, condition = sequence.split(" if ")
+        key, value = self.parse_modify(modify)
+        if self.parse_condition(condition):
+            self.cache[key] = self.cache[key] + value
         return self.cache
+
+
+if "__main__" in __name__:
+    registry = Register()
+    with open("puzzles") as input_file:
+        for sequence in input_file.readlines():
+            registry.register(sequence)
+    print(max([v for k, v in registry.cache.items()]))
