@@ -13,10 +13,10 @@ class Register(object):
         return chaine, -1 * int(number)
 
     def parse_condition(self, sequence):
-        chaine, modify, number = sequence.split(" ")
+        chaine, *to_eval = sequence.split(" ")
         if not self.cache.get(chaine):
             self.cache[chaine] = 0
-        return eval("{}{}{}".format(self.cache[chaine], modify, number))
+        return eval("{}{}".format(self.cache[chaine], " ".join(to_eval)))
 
     def register(self, sequence):
         modify, condition = sequence.split(" if ")
