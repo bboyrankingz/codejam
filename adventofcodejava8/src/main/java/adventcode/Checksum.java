@@ -9,7 +9,7 @@ public class Checksum
 {
 
     public int check(List<Integer> integers) {
-        return integers.stream().max(Comparator.naturalOrder()).get() - integers.stream().min(Comparator.naturalOrder()).get() ;
+        return integers.stream().max(Comparator.naturalOrder()).orElse(0) - integers.stream().min(Comparator.naturalOrder()).orElse(0) ;
     }
 
     public int check2(ArrayList<Integer> integers) {
