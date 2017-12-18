@@ -43,4 +43,11 @@ public class ChecksumTest
                 newArrayList(7, 5, 3),
                 newArrayList(2, 4, 6, 8))), 18);
     }
+
+    public void testChecksumPart2() {
+
+        assertEquals(checksum.check2(newArrayList(5, 9, 2, 8)), 4);
+        assertEquals(checksum.check2(newArrayList(9, 4, 7, 3)), 3);
+        assertEquals(checksum.check2(newArrayList(3, 8, 6, 5)), 2);
+    }
 }

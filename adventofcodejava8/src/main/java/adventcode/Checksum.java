@@ -1,5 +1,6 @@
 package adventcode;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,12 +12,27 @@ public class Checksum
         return integers.stream().max(Comparator.naturalOrder()).get() - integers.stream().min(Comparator.naturalOrder()).get() ;
     }
 
+    public int check2(ArrayList<Integer> integers) {
+        integers.sort(Comparator.reverseOrder());
+        int i = -1;
+        while (i < integers.size()) {
+            i += 1;
+            for (int j = i + 1; j < integers.size(); j++){
+                float divid = (float) integers.get(i) / integers.get(j);
+                if (Math.round(divid) == divid) {
+                    return (int) divid;
+                }
+            }
+        }
+        return 0;
+    }
+
     public int sumAll(List<List<Integer>> lists) {
         return lists.stream().mapToInt(this::check).sum();
     }
 
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println("zz");
     }
 }
